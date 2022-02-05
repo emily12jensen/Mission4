@@ -8,21 +8,29 @@ namespace Mission4.Models
 {
     public class MovieInputContext : DbContext
     {
-        public MovieInputContext (DbContextOptions<MovieInputContext>options): base (options)
+        public MovieInputContext(DbContextOptions<MovieInputContext> options) : base(options)
         {
-         
+
         }
 
         public DbSet<MovieInput> responses { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                new Category { CategoryID = 1, CategoryName = "Funny" },
+                new Category { CategoryID = 2, CategoryName = "Action" },
+                new Category {CategoryID = 3, CategoryName = "Romance"},
+                new Category {CategoryID = 4, CategoryName = "Scary"}
+                );
+
             mb.Entity<MovieInput>().HasData(
 
                 new MovieInput
                 {
                     MovieID = 1,
-                    Category = "Action/Adventure",
+                    CategoryID = 1,
                     Title ="Hary Potter and the Sorcerers Stone",
                     Year = 2001,
                     Director = "Chris Columbus",
@@ -33,7 +41,7 @@ namespace Mission4.Models
                 new MovieInput
                 {
                     MovieID = 2,
-                    Category = "Romance/Drama",
+                    CategoryID = 2,
                     Title = "Little Women",
                     Year = 2019,
                     Director = "Greta Gerwig",
@@ -45,7 +53,7 @@ namespace Mission4.Models
                 new MovieInput
                 {
                     MovieID = 3,
-                    Category = "Romance/Comedy",
+                    CategoryID = 3,
                     Title = "You Again",
                     Year = 2010,
                     Director = "Andy Fickman",
