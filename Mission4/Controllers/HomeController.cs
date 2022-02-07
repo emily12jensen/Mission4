@@ -74,7 +74,15 @@ namespace Mission4.Controllers
             ViewBag.Categories = daContext.Category.ToList();
             var movies = daContext.responses.Single(x => x.MovieID == MovieID);
             
-            return View("MovieList", movies);
+            return View("Movies", movies);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(MovieInput blah)
+        {
+            daContext.Update(blah);
+            daContext.SaveChanges();
+            return RedirectToAction("MovieList");
         }
 
         //delete 
